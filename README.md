@@ -208,6 +208,22 @@ The test harness runs all 7 positive validation suites and verifies syntax/seman
 
 For zero-setup exploration and demonstration, YaarLang includes a client-side Web Studio located at [`web/index.html`](web/index.html).
 
+<p align="center">
+  <img src="docs/images/workbench_window.png" alt="YaarLang Web Studio & macOS-style Terminal Interface" width="100%" />
+</p>
+
+<p align="center">
+  <em>Figure 1: YaarLang Interactive Web Workbench featuring macOS-style window controls, live status telemetry, syntax editor with tab indentation, and interactive terminal output.</em>
+</p>
+
+<p align="center">
+  <img src="docs/images/workbench_mips.png" alt="Target MIPS32 Assembly Codegen Viewer" width="100%" />
+</p>
+
+<p align="center">
+  <em>Figure 2: In-browser MIPS32 target assembly emitter and instruction disassembler.</em>
+</p>
+
 ### Features:
 - **Editor & Indentation:** Tab-key indentation support, live line numbering, character/line tracking, and <kbd>Ctrl</kbd> + <kbd>Enter</kbd> execution.
 - **Compiler Diagnostic Deck:** Tabbed inspection of Terminal Output, AST Tree, TAC Quadruples, Optimization metrics, and MIPS32 assembly.
@@ -235,9 +251,12 @@ python -m http.server 3000
 ├── index.html                      # Root web entry redirect
 ├── vercel.json                     # Static web deployment configuration
 │
-├── docs/                           # Formal language documentation
+├── docs/                           # Formal language documentation & assets
 │   ├── grammar_bnf.md              # Formal Context-Free Grammar (BNF)
-│   └── language_spec.md            # Language manual & token specifications
+│   ├── language_spec.md            # Language manual & token specifications
+│   └── images/                     # UI screenshots and visual assets
+│       ├── workbench_window.png
+│       └── workbench_mips.png
 │
 ├── src/                            # Compiler core source code
 │   ├── main.cpp                    # Driver program & CLI option dispatcher
