@@ -3,174 +3,411 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YaarLang Compiler Workbench</title>
+    <title>YaarLang Compiler Workbench — FAST-NUCES CS 4031</title>
+    
+    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheet -->
     <link rel="stylesheet" href="css/style.css">
-    <!-- Three.js CDN for lightweight ambient 3D visuals -->
+    
+    <!-- Three.js CDN for ambient background -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
-    <canvas id="three-canvas"></canvas>
+    <canvas id="three-canvas" aria-hidden="true"></canvas>
 
     <div class="site-container">
-        <!-- Top Bar -->
+        <!-- Top Navigation Bar -->
         <header class="top-bar">
             <div class="brand-wrapper">
-                <span class="brand-title">YaarLang</span>
-                <span class="badge-version">v1.0.0</span>
+                <div class="brand-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                        <polyline points="2 17 12 22 22 17"></polyline>
+                        <polyline points="2 12 12 17 22 12"></polyline>
+                    </svg>
+                </div>
+                <div class="brand-text">
+                    <span class="brand-title">YaarLang</span>
+                    <span class="badge-version">v1.0.0</span>
+                </div>
             </div>
+
             <nav class="nav-links">
-                <a href="#workbench" class="nav-link">Playground</a>
+                <a href="#workbench" class="nav-link active">Workbench</a>
+                <a href="#pipeline" class="nav-link">Compiler Pipeline</a>
                 <a href="#matrix" class="nav-link">Language Matrix</a>
-                <a href="https://github.com/Haseebashfaq488/CC-Project" target="_blank" class="nav-link">GitHub ↗</a>
+                <a href="https://github.com/Muneeb-Ansari-28/YarLang-Compiler" target="_blank" rel="noopener noreferrer" class="nav-link nav-github">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                    <span>GitHub</span>
+                </a>
             </nav>
         </header>
 
-        <!-- Compact Hero Banner -->
+        <!-- Refined Hero Section -->
         <section class="hero-section">
-            <span class="hero-tag">CS 4031 Compiler Construction</span>
-            <h1 class="hero-heading">Educational Compiler with Colloquial Lexicon</h1>
+            <div class="hero-badge">
+                <span class="badge-dot"></span>
+                <span class="badge-text">CS 4031 • Compiler Construction • FAST-NUCES</span>
+            </div>
+            
+            <h1 class="hero-heading">Colloquial Lexicon.<br>Industrial Compiler Pipeline.</h1>
+            
             <p class="hero-subtitle">
-                A statically typed C-family language featuring an end-to-end multi-stage compiler: AST, Scoped Symbol Tables, Three-Address Code, Optimization passes, and MIPS32 codegen.
+                A strongly typed, block-scoped C-family language compiling authentic Pakistani student slang into Abstract Syntax Trees, Scoped Symbol Tables, Three-Address Code Quadruples, Optimization Passes, and MIPS32 Target Assembly.
             </p>
+
+            <div class="hero-pipeline-preview">
+                <span class="pill-step">Flex Lexer</span>
+                <span class="pill-arrow">→</span>
+                <span class="pill-step">Bison LALR(1)</span>
+                <span class="pill-arrow">→</span>
+                <span class="pill-step">AST Tree</span>
+                <span class="pill-arrow">→</span>
+                <span class="pill-step">Symbol Tables</span>
+                <span class="pill-arrow">→</span>
+                <span class="pill-step">TAC IR</span>
+                <span class="pill-arrow">→</span>
+                <span class="pill-step">Optimizer</span>
+                <span class="pill-arrow">→</span>
+                <span class="pill-step">MIPS32 Codegen</span>
+            </div>
         </section>
 
-        <!-- Split-Pane Workbench -->
+        <!-- Main Workbench Section -->
         <section id="workbench" class="workbench-section">
             <div class="workbench-card">
-                <!-- Toolbar -->
-                <div class="workbench-toolbar">
-                    <div class="toolbar-controls">
-                        <select id="sample-select" class="sample-selector">
-                            <option value="fibonacci">01: Fibonacci Sequence</option>
-                            <option value="calculator">02: Calculator (sardi & garmi)</option>
-                            <option value="even_odd">03: Even or Odd Checker</option>
-                            <option value="arrays">04: Array Sum (list yaar)</option>
-                            <option value="functions">05: Functions (jugaad, pakka & topi)</option>
-                        </select>
-                        <button id="btn-reset" class="btn-secondary">Reset</button>
+                <!-- Mac-Style Window Header Bar -->
+                <div class="window-header">
+                    <div class="window-controls" aria-hidden="true">
+                        <span class="control-dot red"></span>
+                        <span class="control-dot yellow"></span>
+                        <span class="control-dot green"></span>
                     </div>
-                    <button id="btn-run" class="btn-primary">
-                        <span>▶</span> Chalao (Run)
-                    </button>
+                    <div class="window-title">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                            <polyline points="10 9 9 9 8 9"></polyline>
+                        </svg>
+                        <span>yaarc-playground.yaar</span>
+                    </div>
+                    <div class="window-meta">
+                        <span class="status-indicator">
+                            <span class="pulse-dot"></span> In-Browser VM Ready
+                        </span>
+                    </div>
                 </div>
 
-                <!-- Split Panes -->
-                <div class="split-panes">
-                    <!-- Left: Source Editor -->
-                    <div class="pane-editor">
-                        <div id="line-numbers" class="editor-line-numbers">1</div>
-                        <textarea id="code-editor" class="editor-textarea" spellcheck="false"></textarea>
+                <!-- Workbench Actions Toolbar -->
+                <div class="workbench-toolbar">
+                    <div class="toolbar-left">
+                        <label for="sample-select" class="sample-label">Preset Sample:</label>
+                        <div class="select-wrapper">
+                            <select id="sample-select" class="sample-selector" aria-label="Choose a code sample">
+                                <option value="fibonacci">01: Fibonacci Sequence (Loop & Logic)</option>
+                                <option value="calculator">02: Calculator (Switch sardi & garmi)</option>
+                                <option value="even_odd">03: Even or Odd (Conditionals)</option>
+                                <option value="arrays">04: Array Sum & Max (list yaar)</option>
+                                <option value="functions">05: Functions (jugaad, pakka & topi)</option>
+                            </select>
+                            <svg class="select-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </div>
+                        <button id="btn-reset" class="btn-subtle" title="Reset to original sample code">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                                <path d="M3 3v5h5"></path>
+                            </svg>
+                            <span>Reset</span>
+                        </button>
                     </div>
 
-                    <!-- Right: Diagnostics Deck -->
-                    <div class="pane-diagnostics">
-                        <div class="deck-tabs">
-                            <button class="tab-btn active" data-tab="terminal">Terminal Output</button>
-                            <button class="tab-btn" data-tab="ast">AST Tree</button>
-                            <button class="tab-btn" data-tab="tac">TAC (IR)</button>
-                            <button class="tab-btn" data-tab="opt">Optimization</button>
-                            <button class="tab-btn" data-tab="mips">MIPS32 Assembly</button>
-                        </div>
-                        <div id="deck-content" class="deck-content">Compiling...</div>
+                    <div class="toolbar-right">
+                        <button id="btn-copy-code" class="btn-subtle" title="Copy source code to clipboard">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                            </svg>
+                            <span>Copy Code</span>
+                        </button>
+                        <button id="btn-run" class="btn-execute" title="Compile and run code (Ctrl+Enter)">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                            </svg>
+                            <span>Chalao (Run)</span>
+                        </button>
                     </div>
+                </div>
+
+                <!-- Split Workspace Panes -->
+                <div class="split-panes">
+                    <!-- Left: Source Code Editor -->
+                    <div class="pane-editor">
+                        <div class="editor-header">
+                            <span class="pane-tag">SOURCE CODE</span>
+                            <span class="editor-shortcuts">Press <kbd>Ctrl</kbd> + <kbd>Enter</kbd> to run</span>
+                        </div>
+                        <div class="editor-body">
+                            <div id="line-numbers" class="editor-line-numbers" aria-hidden="true">1</div>
+                            <textarea id="code-editor" class="editor-textarea" spellcheck="false" placeholder="Write YaarLang code here..." aria-label="YaarLang Source Code Editor"></textarea>
+                        </div>
+                        <div class="editor-footer">
+                            <span id="editor-stats">Line 1, Col 1</span>
+                            <span>YaarLang C++17 Syntax</span>
+                        </div>
+                    </div>
+
+                    <!-- Right: Compiler Diagnostics Deck -->
+                    <div class="pane-diagnostics">
+                        <div class="deck-tabs-wrapper">
+                            <div class="deck-tabs" role="tablist">
+                                <button class="tab-btn active" role="tab" aria-selected="true" data-tab="terminal">
+                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polyline points="4 17 10 11 4 5"></polyline>
+                                        <line x1="12" y1="19" x2="20" y2="19"></line>
+                                    </svg>
+                                    <span>Output</span>
+                                </button>
+                                <button class="tab-btn" role="tab" aria-selected="false" data-tab="ast">
+                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <line x1="6" y1="3" x2="6" y2="15"></line>
+                                        <circle cx="18" cy="6" r="3"></circle>
+                                        <circle cx="6" cy="18" r="3"></circle>
+                                        <path d="M18 9a9 9 0 0 1-9 9"></path>
+                                    </svg>
+                                    <span>AST Tree</span>
+                                </button>
+                                <button class="tab-btn" role="tab" aria-selected="false" data-tab="tac">
+                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                        <line x1="3" y1="9" x2="21" y2="9"></line>
+                                        <line x1="9" y1="21" x2="9" y2="9"></line>
+                                    </svg>
+                                    <span>TAC (IR)</span>
+                                </button>
+                                <button class="tab-btn" role="tab" aria-selected="false" data-tab="opt">
+                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M18 20V10"></path>
+                                        <path d="M12 20V4"></path>
+                                        <path d="M6 20v-6"></path>
+                                    </svg>
+                                    <span>Optimization</span>
+                                </button>
+                                <button class="tab-btn" role="tab" aria-selected="false" data-tab="mips">
+                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polyline points="16 18 22 12 16 6"></polyline>
+                                        <polyline points="8 6 2 12 8 18"></polyline>
+                                    </svg>
+                                    <span>MIPS32</span>
+                                </button>
+                            </div>
+                            <button id="btn-copy-output" class="btn-copy-icon" title="Copy active tab content to clipboard" aria-label="Copy output">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div class="deck-content-container">
+                            <pre id="deck-content" class="deck-content" tabindex="0">Compiling YaarLang program...</pre>
+                        </div>
+
+                        <div class="deck-footer">
+                            <span id="compilation-status" class="status-badge success">
+                                <span class="badge-dot-sm"></span> Compilation OK
+                            </span>
+                            <span id="diagnostic-tip" class="diagnostic-tip">Client-side VM Execution Engine</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Compiler Pipeline Walkthrough Section -->
+        <section id="pipeline" class="pipeline-section">
+            <div class="section-header">
+                <div class="section-tag">ARCHITECTURAL PHASES</div>
+                <h2 class="section-title">End-to-End Multi-Stage Pipeline</h2>
+                <p class="section-subtitle">A strict 7-phase compilation process compliant with modern compiler theory and FAST-NUCES CS 4031 viva requirements.</p>
+            </div>
+
+            <div class="pipeline-cards">
+                <div class="phase-card">
+                    <div class="phase-number">01</div>
+                    <div class="phase-title">Lexical Analysis</div>
+                    <div class="phase-tech">Flex (Lex)</div>
+                    <p class="phase-desc">Scans source tokens, classifies colloquial keywords, identifiers, constants, and strips comments with line tracking.</p>
+                </div>
+
+                <div class="phase-card">
+                    <div class="phase-number">02</div>
+                    <div class="phase-title">Syntax Analysis</div>
+                    <div class="phase-tech">Bison LALR(1)</div>
+                    <p class="phase-desc">Validates context-free grammar with zero shift/reduce conflicts, enforcing structured Pakistani slang blocks.</p>
+                </div>
+
+                <div class="phase-card">
+                    <div class="phase-number">03</div>
+                    <div class="phase-title">Abstract Syntax Tree</div>
+                    <div class="phase-tech">C++17 AST Node Hierarchy</div>
+                    <p class="phase-desc">Constructs strongly typed AST node classes with polymorphic tree traversal, memory safety, and pretty-printing.</p>
+                </div>
+
+                <div class="phase-card">
+                    <div class="phase-number">04</div>
+                    <div class="phase-title">Semantic Analysis</div>
+                    <div class="phase-tech">Scoped Symbol Tables</div>
+                    <p class="phase-desc">Enforces lexical block scope nesting, strict type checking, operator compatibility, and variable shadowing resolution.</p>
+                </div>
+
+                <div class="phase-card">
+                    <div class="phase-number">05</div>
+                    <div class="phase-title">Three-Address Code</div>
+                    <div class="phase-tech">Linear Quadruples</div>
+                    <p class="phase-desc">Translates AST into linear IR quadruples (Operator, Arg1, Arg2, Result) with synthetic temporaries and branch labels.</p>
+                </div>
+
+                <div class="phase-card">
+                    <div class="phase-number">06</div>
+                    <div class="phase-title">Code Optimization</div>
+                    <div class="phase-tech">Basic Blocks & Passes</div>
+                    <p class="phase-desc">Leader detection partitions CFG into basic blocks; applies constant folding, dead-code elimination, and copy propagation.</p>
+                </div>
+
+                <div class="phase-card">
+                    <div class="phase-number">07</div>
+                    <div class="phase-title">Target Codegen & VM</div>
+                    <div class="phase-tech">MIPS32 & In-Memory VM</div>
+                    <p class="phase-desc">Generates standard MIPS32 assembly with register allocation ($t0-$t9, $s0-$s7, $v0) and executes immediately via runtime VM.</p>
                 </div>
             </div>
         </section>
 
         <!-- Compact Language Matrix -->
         <section id="matrix" class="matrix-section">
-            <div class="section-header">
-                <h2 class="section-title">Language Construct Matrix</h2>
-                <p class="section-subtitle">Summary of the 11 mandatory semester project features and their corresponding YaarLang syntax.</p>
+            <div class="section-header-split">
+                <div class="section-header">
+                    <div class="section-tag">SYNTAX SPECIFICATION</div>
+                    <h2 class="section-title">Language Construct Matrix</h2>
+                    <p class="section-subtitle">Mapping the 11 mandatory semester project requirements to YaarLang and standard C++ equivalents.</p>
+                </div>
+                <div class="matrix-search-box">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <input type="text" id="matrix-search" placeholder="Filter constructs..." aria-label="Filter language constructs">
+                </div>
             </div>
 
             <div class="matrix-table-wrapper">
-                <table class="matrix-table">
+                <table class="matrix-table" id="syntax-table">
                     <thead>
                         <tr>
-                            <th>Construct Category</th>
-                            <th>YaarLang Syntax</th>
-                            <th>C++ Equivalent</th>
-                            <th>Description</th>
+                            <th scope="col">Construct Category</th>
+                            <th scope="col">YaarLang Colloquial Syntax</th>
+                            <th scope="col">C++ Equivalent</th>
+                            <th scope="col">Semantic Description</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Program Boundary</td>
+                            <td><span class="category-pill">Program Boundary</span></td>
                             <td><span class="code-token">sun yaar { ... } khatam yaar</span></td>
                             <td><code>int main() { ... }</code></td>
-                            <td>Enclosing block for the entire program</td>
+                            <td>Enclosing lexical block for the entire translation unit</td>
                         </tr>
                         <tr>
-                            <td>Data Types</td>
+                            <td><span class="category-pill">Data Types</span></td>
                             <td><span class="code-token">number, float, char, string, bool</span></td>
                             <td><code>int, double, char, string, bool</code></td>
-                            <td>Standard static primitive types</td>
+                            <td>Standard static primitive types with strict type checking</td>
                         </tr>
                         <tr>
-                            <td>Booleans</td>
+                            <td><span class="category-pill">Boolean Literals</span></td>
                             <td><span class="code-token">pakka / topi</span></td>
                             <td><code>true / false</code></td>
-                            <td>Logical boolean literals</td>
+                            <td>Authentic colloquial boolean truth values</td>
                         </tr>
                         <tr>
-                            <td>Variable Declaration</td>
+                            <td><span class="category-pill">Variables</span></td>
                             <td><span class="code-token">rakh yaar &lt;type&gt; &lt;id&gt; = &lt;expr&gt;;</span></td>
-                            <td><code>int x = 10;</code></td>
-                            <td>Scoped variable declaration & initialization</td>
+                            <td><code>type id = expr;</code></td>
+                            <td>Scoped variable declaration, type-binding, and initialization</td>
                         </tr>
                         <tr>
-                            <td>Console Output</td>
+                            <td><span class="category-pill">Console Output</span></td>
                             <td><span class="code-token">bol yaar(expr);</span></td>
                             <td><code>std::cout &lt;&lt; expr;</code></td>
-                            <td>Standard output print statement</td>
+                            <td>Standard output emission with newline delimiter</td>
                         </tr>
                         <tr>
-                            <td>Console Input</td>
+                            <td><span class="category-pill">Console Input</span></td>
                             <td><span class="code-token">puch yaar(id);</span></td>
                             <td><code>std::cin &gt;&gt; id;</code></td>
-                            <td>Standard input read statement</td>
+                            <td>Standard input scanner reading into variable binding</td>
                         </tr>
                         <tr>
-                            <td>Conditionals</td>
+                            <td><span class="category-pill">Conditionals</span></td>
                             <td><span class="code-token">agar yaar (...) { } warna { }</span></td>
                             <td><code>if (...) { } else { }</code></td>
-                            <td>Structured branching with brackets</td>
+                            <td>Structured branching with optional <code>warna agar</code></td>
                         </tr>
                         <tr>
-                            <td>Selection Statement</td>
-                            <td><span class="code-token">dekh yaar (...) { sardi: ... garmi: }</span></td>
-                            <td><code>switch (...) { case: default: }</code></td>
-                            <td>Multi-way branch with break</td>
+                            <td><span class="category-pill">Selection</span></td>
+                            <td><span class="code-token">dekh yaar (x) { sardi 1: ... garmi: }</span></td>
+                            <td><code>switch (x) { case 1: default: }</code></td>
+                            <td>Multi-way jump table with <code>bas kar yaar</code> (break)</td>
                         </tr>
                         <tr>
-                            <td>Iteration Loops</td>
+                            <td><span class="category-pill">Iteration Loops</span></td>
                             <td><span class="code-token">ghoom yaar / jab tak yaar / chala yaar</span></td>
                             <td><code>for / while / do-while</code></td>
-                            <td>Full loop family with break & continue</td>
+                            <td>Full loop family with <code>agay chal yaar</code> (continue)</td>
                         </tr>
                         <tr>
-                            <td>Functions & Return</td>
-                            <td><span class="code-token">jugaad &lt;type&gt; func() { de yaar x; }</span></td>
-                            <td><code>type func() { return x; }</code></td>
-                            <td>Function declaration and value return</td>
+                            <td><span class="category-pill">Functions & Return</span></td>
+                            <td><span class="code-token">jugaad &lt;type&gt; func(...) { de yaar v; }</span></td>
+                            <td><code>type func(...) { return v; }</code></td>
+                            <td>Subroutine definition with formal parameters & return</td>
                         </tr>
                         <tr>
-                            <td>Arrays</td>
+                            <td><span class="category-pill">Arrays</span></td>
                             <td><span class="code-token">list yaar &lt;type&gt; arr[&lt;size&gt;];</span></td>
                             <td><code>type arr[size];</code></td>
-                            <td>Fixed-size array indexing</td>
+                            <td>Contiguous indexed collection with bounds safety</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </section>
 
-        <!-- Minimalist Footer -->
+        <!-- Refined Footer -->
         <footer class="site-footer">
-            <p>CS 4031 Compiler Construction Semester Project • FAST-NUCES (Faisalabad-Chiniot Campus)</p>
+            <div class="footer-content">
+                <div class="footer-left">
+                    <span class="footer-title">YaarLang Compiler Project</span>
+                    <span class="footer-sub">CS 4031 Compiler Construction • FAST-NUCES (Faisalabad-Chiniot Campus)</span>
+                </div>
+                <div class="footer-right">
+                    <span>C++17 • Flex 2.6 • Bison 3.8 • MIPS32</span>
+                </div>
+            </div>
         </footer>
     </div>
+
+    <!-- Toast Notification for Actions -->
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
     <!-- Scripts -->
     <script src="js/samples.js"></script>

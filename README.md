@@ -3,7 +3,7 @@
 > **Course:** CS 4031 — Compiler Construction  
 > **Institution:** FAST-NUCES (Faisalabad-Chiniot Campus)  
 > **Evaluation:** 30% Implementation Deliverables | 70% Individual Viva  
-> **Repository:** [https://github.com/Haseebashfaq488/CC-Project](https://github.com/Haseebashfaq488/CC-Project)
+> **Repository:** [https://github.com/Muneeb-Ansari-28/YarLang-Compiler](https://github.com/Muneeb-Ansari-28/YarLang-Compiler)
 
 ---
 
